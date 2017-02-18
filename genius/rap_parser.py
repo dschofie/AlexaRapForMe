@@ -17,11 +17,9 @@ def get_lyrics(path):
     headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36'}
     page = requests.get(url, headers=headers)
     html = BeautifulSoup(page.text, 'html.parser')
-    body = html.find('body', class_='full_browser_heigh_body snarly')
-    [h.extract() for h in html('script')]
     lyrics = html.find('lyrics').get_text().encode(sys.stdout.encoding, errors='replace')
     lyrics = re.sub('\[.*\]','',lyrics)
-    print lyrics
+    return lyrics
 
 if __name__ == '__main__':
     path = get_path_from_search('pineapple')
