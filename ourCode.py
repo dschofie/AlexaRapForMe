@@ -10,7 +10,11 @@ http://amzn.to/1LGWsLG
 from __future__ import print_function
 import requests
 from bs4 import BeautifulSoup
+import re
+import sys
+import logging
 
+logger = logging.getLogger()
 
 def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
@@ -114,7 +118,11 @@ def get_lyrics(path):
     headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36'}
     page = requests.get(url, headers=headers)
     html = BeautifulSoup(page.text, 'html.parser')
-    lyrics = html.find('lyrics').get_text().encode(sys.stdout.encoding, errors='replace')
+    logger.info("Sys standard out")
+
+    #logger.info(sys.stdout.encoding)
+    #print(sys.stdout.encoding)
+    lyrics = html.find('lyrics').get_text()
     lyrics = re.sub('\[.*\]','',lyrics)
     return lyrics
 
