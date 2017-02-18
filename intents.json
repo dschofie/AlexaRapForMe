@@ -1,0 +1,13 @@
+{
+  "intents": [
+    {
+      "intent": "SpitRap",
+      "slots": [
+        {
+          "name": "KeyWord",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}
